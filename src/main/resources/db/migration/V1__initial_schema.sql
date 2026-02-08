@@ -6,11 +6,11 @@
 -- Table for storing sensor measurements
 CREATE TABLE sensor_measurements (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    sensor_id VARCHAR(100) NOT NULL,
-    sensor_type VARCHAR(20) NOT NULL,
-    value DOUBLE NOT NULL,
-    timestamp TIMESTAMP NOT NULL,
-    warehouse_id VARCHAR(100) NOT NULL,
+    sensor_id VARCHAR(100),
+    sensor_type VARCHAR(20),
+    value DOUBLE,
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    warehouse_id VARCHAR(100),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -22,12 +22,12 @@ CREATE INDEX idx_sensor_measurements_sensor_type ON sensor_measurements(sensor_t
 -- Table for storing alarm events
 CREATE TABLE alarm_events (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    sensor_id VARCHAR(100) NOT NULL,
-    sensor_type VARCHAR(20) NOT NULL,
-    value DOUBLE NOT NULL,
-    threshold DOUBLE NOT NULL,
-    severity VARCHAR(20) NOT NULL,
-    timestamp TIMESTAMP NOT NULL,
+    sensor_id VARCHAR(100),
+    sensor_type VARCHAR(20),
+    value DOUBLE,
+    threshold DOUBLE,
+    severity VARCHAR(20),
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     warehouse_id VARCHAR(100) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
