@@ -1,0 +1,66 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:16-alpine
+    container_name: wms-postgres
+    environment:
+      POSTGRES_DB: wmsdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - wms-network
+
+  # Warehouse Monitoring System Application
+  wms-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: wms-app
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      # Database Configuration
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: wmsdb
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+
+      # Application Configuration
+      SPRING_PROFILES_ACTIVE: prod
+
+      # Sensor Configuration
+      SENSOR_TEMPERATURE_PORT: 3344
+      SENSOR_HUMIDITY_PORT: 3355
+      SENSOR_HOST: 0.0.0.0
+
+      # Monitoring Thresholds
+      MONITORING_TEMPERATURE_THRESHOLD: 35.0
+      MONITORING_HUMIDITY_THRESHOLD: 50.0
+    ports:
+      - "8080:8080"      # HTTP port
+      - "3344:3344/udp"  # Temperature sensor UDP port
+      - "3355:3355/udp"  # Humidity sensor UDP port
+    networks:
+      - wms-network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  wms-network:
+    driver: bridge
