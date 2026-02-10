@@ -27,7 +27,7 @@ class AlarmEventRepositoryTest {
     @BeforeEach
     void setUp() {
         // Clean up before each test - commented out to avoid errors before Flyway runs
-        // repository.deleteAll().block();
+        repository.deleteAll().block();
     }
 
     @Test

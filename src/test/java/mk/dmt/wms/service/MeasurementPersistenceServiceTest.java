@@ -36,8 +36,8 @@ class MeasurementPersistenceServiceTest {
     @BeforeEach
     void setUp() {
         // Clean up before each test - commented out to avoid errors before Flyway runs
-        // measurementRepository.deleteAll().block();
-        // alarmRepository.deleteAll().block();
+        measurementRepository.deleteAll().block();
+        alarmRepository.deleteAll().block();
     }
 
     @Test

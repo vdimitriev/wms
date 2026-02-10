@@ -32,6 +32,6 @@ public interface AlarmEventRepository extends ReactiveCrudRepository<AlarmEventE
     /**
      * Find the latest N alarms.
      */
-    @Query("SELECT * FROM alarm_events ORDER BY timestamp DESC LIMIT :limit")
+    @Query("SELECT * FROM alarm_events ORDER BY updated_at DESC LIMIT :limit")
     Flux<AlarmEventEntity> findLatestAlarms(int limit);
 }

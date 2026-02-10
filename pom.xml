@@ -10,12 +10,13 @@
 	</parent>
 	<groupId>mk.dmt</groupId>
 	<artifactId>wms</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>wms</name>
 	<description>Warehouse Monitoring System</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
+
 	<dependencies>
 		<!-- Reactive Web -->
 		<dependency>
@@ -29,47 +30,50 @@
 			<artifactId>reactor-netty-core</artifactId>
 		</dependency>
 
-	<!-- Logging -->
-	<dependency>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-logging</artifactId>
-	</dependency>
+		<!-- Logging -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-logging</artifactId>
+		</dependency>
 
-	<!-- Reactive Database Support -->
-	<dependency>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-data-r2dbc</artifactId>
-	</dependency>
+		<!-- Reactive Database Support -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-r2dbc</artifactId>
+		</dependency>
 
-	<!-- H2 Database (in-memory) -->
-	<dependency>
-		<groupId>com.h2database</groupId>
-		<artifactId>h2</artifactId>
-		<scope>runtime</scope>
-	</dependency>
-	<dependency>
-		<groupId>io.r2dbc</groupId>
-		<artifactId>r2dbc-h2</artifactId>
-		<scope>runtime</scope>
-	</dependency>
+		<!-- H2 Database (in-memory) -->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
 
-	<!-- Flyway for database migrations -->
-	<dependency>
-		<groupId>org.flywaydb</groupId>
-		<artifactId>flyway-core</artifactId>
-	</dependency>
-	<!-- Spring JDBC for Flyway (Flyway doesn't support R2DBC yet, needs JDBC) -->
-	<dependency>
-		<groupId>org.springframework</groupId>
-		<artifactId>spring-jdbc</artifactId>
-	</dependency>
+		<dependency>
+			<groupId>io.r2dbc</groupId>
+			<artifactId>r2dbc-h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
 
-	<!-- Test dependencies -->
+		<!-- Flyway for database migrations -->
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
+		</dependency>
+
+		<!-- Spring JDBC for Flyway (Flyway doesn't support R2DBC yet, needs JDBC) -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+		</dependency>
+
+		<!-- Test dependencies -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>io.projectreactor</groupId>
 			<artifactId>reactor-test</artifactId>

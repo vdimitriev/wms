@@ -1,6 +1,7 @@
 package mk.dmt.wms.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.Instant;
@@ -12,12 +13,25 @@ import java.time.Instant;
 public class SensorMeasurementEntity {
 
     @Id
+    @Column("id")
     private Long id;
+
+    @Column("sensor_id")
     private String sensorId;
+
+    @Column("sensor_type")
     private String sensorType;
+
+    @Column("measurement_value")
     private Double value;
+
+    @Column("updated_at")
     private Instant timestamp;
+
+    @Column("warehouse_id")
     private String warehouseId;
+
+    @Column("created_at")
     private Instant createdAt;
 
     public SensorMeasurementEntity() {

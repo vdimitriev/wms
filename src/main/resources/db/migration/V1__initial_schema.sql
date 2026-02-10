@@ -4,36 +4,35 @@
 -- ==========================================
 
 -- Table for storing sensor measurements
-CREATE TABLE sensor_measurements (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    sensor_id VARCHAR(100),
-    sensor_type VARCHAR(20),
-    value DOUBLE,
-    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    warehouse_id VARCHAR(100),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+create table if not exists sensor_measurements (
+    id                 bigserial primary key,
+    sensor_id          text,
+    sensor_type        text,
+    measurement_value  numeric(10,2),
+    updated_at         timestamp,
+    warehouse_id       text,
+    created_at         timestamp
 );
 
 -- Indexes for sensor_measurements
-CREATE INDEX idx_sensor_measurements_sensor_id ON sensor_measurements(sensor_id);
-CREATE INDEX idx_sensor_measurements_timestamp ON sensor_measurements(timestamp);
-CREATE INDEX idx_sensor_measurements_sensor_type ON sensor_measurements(sensor_type);
+create index idx_sensor_measurements_sensor_id on sensor_measurements(sensor_id);
+create index idx_sensor_measurements_timestamp on sensor_measurements(updated_at);
+create index idx_sensor_measurements_sensor_type on sensor_measurements(sensor_type);
 
 -- Table for storing alarm events
-CREATE TABLE alarm_events (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    sensor_id VARCHAR(100),
-    sensor_type VARCHAR(20),
-    value DOUBLE,
-    threshold DOUBLE,
-    severity VARCHAR(20),
-    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    warehouse_id VARCHAR(100) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+create table if not exists alarm_events (
+    id                 bigserial primary key,
+    sensor_id          text,
+    sensor_type        text,
+    measurement_value  numeric(10,2),
+    threshold          numeric(10,2),
+    severity           text,
+    updated_at         timestamp,
+    warehouse_id       text,
+    created_at         timestamp
 );
 
 -- Indexes for alarm_events
-CREATE INDEX idx_alarm_events_sensor_id ON alarm_events(sensor_id);
-CREATE INDEX idx_alarm_events_timestamp ON alarm_events(timestamp);
-CREATE INDEX idx_alarm_events_severity ON alarm_events(severity);
-
+create index idx_alarm_events_sensor_id on alarm_events(sensor_id);
+create index idx_alarm_events_timestamp on alarm_events(updated_at);
+create index idx_alarm_events_severity on alarm_events(severity);

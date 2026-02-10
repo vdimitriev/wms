@@ -28,7 +28,7 @@ class SensorMeasurementRepositoryTest {
     @BeforeEach
     void setUp() {
         // Clean up before each test - commented out to avoid errors before Flyway runs
-        // repository.deleteAll().block();
+        repository.deleteAll().block();
     }
 
     @Test
@@ -127,12 +127,8 @@ class SensorMeasurementRepositoryTest {
     @Test
     void shouldCountMeasurements() {
         // Given
-        SensorMeasurementEntity entity1 = new SensorMeasurementEntity(
-            "zone_a", SensorType.TEMPERATURE.name(), 25.5, Instant.now(), "warehouse-1"
-        );
-        SensorMeasurementEntity entity2 = new SensorMeasurementEntity(
-            "zone_b", SensorType.HUMIDITY.name(), 45.0, Instant.now(), "warehouse-1"
-        );
+        SensorMeasurementEntity entity1 = new SensorMeasurementEntity("zone_a", SensorType.TEMPERATURE.name(), 25.5, Instant.now(), "warehouse-1");
+        SensorMeasurementEntity entity2 = new SensorMeasurementEntity("zone_b", SensorType.HUMIDITY.name(), 45.0, Instant.now(), "warehouse-1");
 
         repository.save(entity1).block();
         repository.save(entity2).block();
@@ -147,15 +143,11 @@ class SensorMeasurementRepositoryTest {
     void shouldHandleInstantTimestamp() {
         // Given
         Instant specificTime = Instant.parse("2026-02-08T10:30:00Z");
-        SensorMeasurementEntity entity = new SensorMeasurementEntity(
-            "zone_a", SensorType.TEMPERATURE.name(), 25.5, specificTime, "warehouse-1"
-        );
+        SensorMeasurementEntity entity = new SensorMeasurementEntity("zone_a", SensorType.TEMPERATURE.name(), 25.5, specificTime, "warehouse-1");
 
         // When & Then
         StepVerifier.create(repository.save(entity))
-            .assertNext(saved -> {
-                assertThat(saved.getTimestamp()).isEqualTo(specificTime);
-            })
+            .assertNext(saved -> { assertThat(saved.getTimestamp()).isEqualTo(specificTime);})
             .verifyComplete();
     }
 }

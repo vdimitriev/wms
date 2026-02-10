@@ -37,12 +37,12 @@ public interface SensorMeasurementRepository extends ReactiveCrudRepository<Sens
     /**
      * Find the latest N measurements.
      */
-    @Query("SELECT * FROM sensor_measurements ORDER BY timestamp DESC LIMIT :limit")
+    @Query("SELECT * FROM sensor_measurements ORDER BY updated_at DESC LIMIT :limit")
     Flux<SensorMeasurementEntity> findLatestMeasurements(int limit);
 
     /**
      * Find the latest N measurements for a specific sensor type.
      */
-    @Query("SELECT * FROM sensor_measurements WHERE sensor_type = :sensorType ORDER BY timestamp DESC LIMIT :limit")
+    @Query("SELECT * FROM sensor_measurements WHERE sensor_type = :sensorType ORDER BY updated_at DESC LIMIT :limit")
     Flux<SensorMeasurementEntity> findLatestBySensorType(String sensorType, int limit);
 }
